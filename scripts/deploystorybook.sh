@@ -43,12 +43,12 @@ TARGET_URL=$(./scripts/getTargetUrl.sh)
 git config user.email "$USER@gymnast.ci" && git config user.name "gymnast CI ($BRANCH)"
 
 # Build StoryBook in the `../temp` folder
-yarn
+yarn --ignore-engines
 yarn build:dev
 ./node_modules/.bin/picturebook-build -s ./static -o $TEMP_PATH
 
-# Copy circle.yml to ensure last config is used
-cp circle.yml $TEMP_PATH
+# Copy circleci to ensure last config is used
+cp -R .circleci $TEMP_PATH
 # Copy .gitignore to avoid commiting unnecessary files
 cp .gitignore $TEMP_PATH
 
